@@ -1,0 +1,19 @@
+{
+  "name": "crawlpost",
+  "version": "1.0.0",
+  "description": "TikTok image slideshow generator for AI Chat Fantasy",
+  "main": "generate.js",
+  "scripts": {
+    "generate": "node generate.js",
+    "feedback": "node feedback.js",
+    "chat": "node chat.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "canvas": "^2.11.2",
+    "openai": "^4.85.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
