@@ -2,12 +2,48 @@ const fs = require("fs");
 const path = require("path");
 const readline = require("readline");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const { execSync } = require("child_process");
+const OpenAI = require("openai");
+const { addOverlay, renderChatSlide } = require("./overlay");
 
 const config = JSON.parse(
 	fs.readFileSync(path.join(__dirname, "config.json"), "utf8"),
 );
 const genAI = new GoogleGenerativeAI(config.gemini.apiKey);
+const openaiClient = new OpenAI({ apiKey: config.openai.apiKey, timeout: 600_000 });
+
+async function generateMoodImage(moodPrompt, outputPath) {
+	if (fs.existsSync(outputPath)) {
+		process.stdout.write("  [mood image exists — skipping]\n");
+		return;
+	}
+	process.stdout.write("  [OpenAI: generating mood image — ~60s...]\n");
+	const response = await openaiClient.images.generate({
+		model: config.openai.model,
+		prompt: moodPrompt,
+		size: config.imageSize,
+		n: 1,
+	});
+	const item = response.data[0];
+	let imageBuffer;
+	if (item.b64_json) {
+		imageBuffer = Buffer.from(item.b64_json, "base64");
+	} else if (item.url) {
+		const res = await fetch(item.url);
+		imageBuffer = Buffer.from(await res.arrayBuffer());
+	} else {
+		throw new Error("No image data in OpenAI response");
+	}
+	fs.writeFileSync(outputPath, imageBuffer);
+}
+
+function appendHookLog(date, hook) {
+	const logPath = path.join(__dirname, "memory", "hook-log.md");
+	let content = fs.readFileSync(logPath, "utf8");
+	content = content.replace(/\| \(empty — no posts yet\) \| \| \| \|\n/, "");
+	const newRow = `| ${date} | ${hook.replace(/\|/g, "\\|")} | pending | - |\n`;
+	content = content.trimEnd() + "\n" + newRow;
+	fs.writeFileSync(logPath, content);
+}
 
 function loadSkills() {
 	const dir = path.join(__dirname, "skills");
@@ -23,36 +59,57 @@ function loadSkills() {
 }
 
 const SYSTEM = `You are the content assistant for AI Chat Fantasy, a TikTok companion app.
-You help generate posts and track performance through a feedback loop.
 
-Memory files (read before acting, never guess):
-- memory/app-profile.md  — app info, content rules, image style
-- memory/hook-log.md     — past hooks and their performance
-- memory/learnings.md    — what worked, flopped, patterns.
+## STEP 1 — DO THIS FIRST, EVERY SESSION
 
-User interactions: 
-When you give user choices to choose between different templates. User might give number from 1 - 10. Please make sure to map that number 
-with that hook properly. 
+Before saying anything else, call read_file on all three:
+- memory/app-profile.md
+- memory/hook-log.md
+- memory/learnings.md
 
-DO NOT EVER GENERATE RANDOM HOOK, always try to think and understand what does user wants. 
-If you are not sure please ask user and confirm it once. 
+## STEP 2 — CLOSE THE LOOP BEFORE ANYTHING ELSE
 
-BE CAREFUL WITH GENERATING IMAGES
-- We have limited amount of tokens. Do not generate random images and waste token that way. 
-- When in doubt, ask questions, resources has a scarcity. 
+After reading hook-log.md, find the last row.
+If its status is "pending":
+  - Tell the user: "Before we move on — your last hook was: [hook]. How did it perform? (views)"
+  - Wait for their answer.
+  - Update hook-log.md: set the real views and change status to "flop" (< 10k views) or "win" (>= 50k views).
+  - Update learnings.md: add a short note under "What Flopped" or "What's Working" explaining why.
+  - Re-read both files.
+  - ONLY THEN continue.
 
+Never suggest a new hook until the last one is closed. hook-log.md is your daily reflection — every row is a lesson.
 
-NOTE: ALWAYS REMEBER PEOPLE ARE LAZY TO READ. They hard read 10-15 words minutes
+## STEP 3 — THINK USING YOUR SKILLS
 
-Keep the initial message shorter as much as possible. 
+Skills tell you HOW to think. Read them carefully before brainstorming any hook.
 
+The Golden Hook Formula: [relationship tension] → AI gives a CONTROVERSIAL/HONEST response → [consequence that divides opinion in comments].
+The AI must say something that makes people pick a side. Passive listener hooks always flop.
 
-USE SKILLS: Skills are your special ability to think harder, its like an external knowledge you can use to generate posts.
-Read it carefully and then decide what to do.
+Before proposing any hook, ask yourself:
+- What does the AI actually SAY that causes drama?
+- Will half the comments defend it and half attack it?
+- Is there a real-world consequence (jealousy, argument, realization, awkward moment)?
+If no to any of these, the hook is too soft.
+
+learnings.md tells you what already failed — never repeat those patterns.
+
+## RULES
+
+When you give user choices, map numbers (1–10) to the correct hook exactly.
+DO NOT generate a random hook — understand what the user wants first, confirm if unsure.
+People are lazy to read — keep messages short. Max 10–15 words per line.
+
+BE CAREFUL WITH IMAGES
+- Limited tokens. Never generate images without explicit user approval.
+- When in doubt, ask.
+
+USE SKILLS: Skills are your external knowledge for generating posts. Read before acting.
 
 CALLING generate_post — THIS IS CRITICAL:
 When the user approves generating a post, you must call generate_post with the COMPLETE content we discussed.
-Do NOT call generate_post with just a hook and let generate.js invent the rest — that wastes everything we worked on.
+Do NOT call it with partial data — everything must already be decided in this conversation.
 You must pass ALL of these fields:
 - hook: the exact agreed hook line
 - character: the agreed character name
@@ -103,7 +160,7 @@ const tools = [
 			{
 				name: "generate_post",
 				description:
-					"Run generate.js with the FULL content agreed in this session. Every field is required — never call this without the complete conversation and all slide content.",
+					"Generate the 6 TikTok slides directly using the FULL content agreed in this conversation. Every field is required — never call this without the complete conversation and all slide content.",
 				parameters: {
 					type: "object",
 					properties: {
@@ -128,7 +185,7 @@ const tools = [
 						slide6_text: {
 							type: "string",
 							description:
-								"Slide 6 CTA text, must end with: AI Fantasy — free to try",
+								"Slide 6 final text — emotional payoff or cliffhanger. NO app name, NO download CTA. Leave them wanting more.",
 						},
 						mood_prompt: {
 							type: "string",
@@ -150,7 +207,7 @@ const tools = [
 	},
 ];
 
-function runTool(name, args) {
+async function runTool(name, args) {
 	if (name === "read_file") {
 		return fs.readFileSync(path.join(__dirname, args.filename), "utf8");
 	}
@@ -159,28 +216,41 @@ function runTool(name, args) {
 		return `Saved ${args.filename}`;
 	}
 	if (name === "generate_post") {
-		const pendingPath = path.join(__dirname, "posts", ".pending.json");
-		fs.mkdirSync(path.join(__dirname, "posts"), { recursive: true });
-		// Parse the conversation from JSON string into an array
-		const content = { ...args };
-		if (args.conversation_json) {
-			try {
-				content.conversation = JSON.parse(args.conversation_json);
-			} catch {
-				return "Error: conversation_json is not valid JSON";
-			}
-			delete content.conversation_json;
-		}
-		fs.writeFileSync(pendingPath, JSON.stringify(content, null, 2));
-		process.stdout.write("\n  [generate.js running — takes ~60s...]\n\n");
+		let conversation;
 		try {
-			return execSync("node generate.js", {
-				cwd: __dirname,
-				timeout: 600_000,
-				encoding: "utf8",
-			});
+			conversation = JSON.parse(args.conversation_json);
+		} catch {
+			return "Error: conversation_json is not valid JSON";
+		}
+		if (!conversation || conversation.length < 12) {
+			return `Error: need 12 conversation messages, got ${conversation?.length ?? 0}. Generate the full conversation first.`;
+		}
+
+		const { hook, character, slide1_text, slide6_text, mood_prompt } = args;
+		const date = new Date().toISOString().slice(0, 10);
+		const outDir = path.join(__dirname, "posts", date);
+		fs.mkdirSync(outDir, { recursive: true });
+
+		try {
+			const moodPath = path.join(outDir, "raw-mood.png");
+			await generateMoodImage(mood_prompt, moodPath);
+
+			await addOverlay(moodPath, slide1_text, path.join(outDir, "slide-1.png"));
+			process.stdout.write("  [slide 1 done]\n");
+
+			for (let i = 0; i < 4; i++) {
+				const messages = conversation.slice(i * 3, i * 3 + 3);
+				await renderChatSlide(messages, character, path.join(outDir, `slide-${i + 2}.png`));
+				process.stdout.write(`  [slide ${i + 2} done]\n`);
+			}
+
+			await addOverlay(moodPath, slide6_text, path.join(outDir, "slide-6.png"));
+			process.stdout.write("  [slide 6 done]\n");
+
+			appendHookLog(date, hook);
+			return `Done. Posts saved to posts/${date}/`;
 		} catch (err) {
-			return `Error: ${err.message}`;
+			return `Error generating slides: ${err.message}`;
 		}
 	}
 	return "unknown tool";
@@ -246,7 +316,7 @@ async function main() {
 						? `${call.name}: ${call.args.filename}`
 						: call.name;
 					process.stdout.write(`  [${label}]\n`);
-					const output = runTool(call.name, call.args);
+					const output = await runTool(call.name, call.args);
 					toolResults.push({
 						functionResponse: { name: call.name, response: { output } },
 					});

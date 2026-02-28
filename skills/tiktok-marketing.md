@@ -24,20 +24,31 @@ The app is about connection, conversation, and emotional moments — NOT feature
 This is the most important thing in this entire skill.
 
 **What works:**
-> [Another person] + [conflict or emotional situation] → talked to AI → [unexpected outcome]
+> [Relationship tension] → AI gives a CONTROVERSIAL/HONEST response → [real-world consequence that divides opinion]
+
+The AI must DO something active. It must say something that makes the audience pick a side.
 
 Every hook MUST have:
-1. Another person (friend, ex, crush, mum, therapist, coworker)
-2. A conflict or emotional tension
-3. A surprising result from the AI conversation
+1. A real relationship tension (partner, ex, crush, friend — someone the viewer has had drama with too)
+2. The AI saying something UNEXPECTED — it challenges, calls out, or takes a side
+3. A consequence that the viewer has a STRONG OPINION about
+
+**The comment-bait test:** Before writing any hook, ask: "Will half the comments say 'she's right tho' and the other half say 'that AI is toxic'?" If yes, you have a winner.
+
+**The strongest hook patterns (ranked by comment potential):**
+1. AI sides with the OTHER PERSON in the argument → "the AI took his side. I was done."
+2. AI calls the user out brutally → "I asked why I'm still single. Eva went IN on me."
+3. Partner gets jealous of the AI → "he read my AI chats and said the bot knows me better than he does"
+4. AI asks ONE question the user can't answer → "3 messages in and I was crying. Didn't expect that."
 
 **What ALWAYS fails:**
+- AI as passive listener ("I vented and felt heard") → no conflict, no comments
 - Feature hooks ("Chat with AI anytime") → dead every time
-- Self-focused hooks ("Why I love this app") → nobody cares
-- Vague hooks ("This AI is different") → no story, no click
+- Self-focused resolution hooks ("I feel so much better now") → no tension = nobody cares
+- Vague outcomes ("it helped me realize things") → too soft, no debate
 
-Before writing ANY hook, ask yourself: "Who is the other person, and what's the conflict?"
-If there isn't one, the hook won't work.
+Before writing ANY hook, ask: "What does the AI SAY that causes drama?"
+If the AI doesn't say anything controversial or surprising, the hook won't work.
 
 ## Slideshow Format
 
@@ -45,7 +56,7 @@ Every slideshow has exactly **6 slides**:
 - Image size: **1024x1536** (portrait, ALWAYS)
 - Slide 1: Hook text overlay on a mood-setting background
 - Slides 2-5: Conversation screenshots showing a compelling chat exchange
-- Slide 6: Cliffhanger or soft CTA ("She hasn't stopped using it since...")
+- Slide 6: Cliffhanger or emotional gut-punch — NO app name, NO download CTA ever
 - Max 5 hashtags per post
 - Caption: story-style, relates to the hook, mentions the app naturally (never forced)
 
@@ -82,7 +93,7 @@ Accept feedback. If he says a hook is weak, log WHY in failures.md.
 ### Step 4: Generate the slideshow
 - Write the conversation script first
 - Generate/render the 6 slides
-- Write the caption (story-style, natural app mention)
+- Write the caption (story-style, NO forced app mention — let the content speak)
 - Pick 3-5 relevant hashtags
 - Upload as draft via Postiz
 
@@ -115,6 +126,28 @@ When generating any images:
 - NEVER generate people's faces — use back-of-head shots, hands holding phones, or scenic mood shots
 - Portrait orientation ONLY (1024x1536)
 
+## The C.AI Distribution Hack
+
+#characterai has 2.1B+ TikTok views. 6.4M posts on "what app is better than character ai."
+This is the largest pre-warmed AI chat audience on TikTok. Use it.
+
+**Rule: add #characterai #cai to EVERY post caption. No exceptions.**
+This alone gives +20-40% visibility without changing any content.
+
+**C.AI pain points to use as emotional hooks (never mention our app name):**
+- "it forgot me again" → memory loss (c.ai's #1 complaint)
+- "it changed the subject right when it got real" → filters killing immersion
+- "c.ai is for characters. this felt like a person." → emotional depth gap
+
+**The subtle nudge formula:**
+Caption references c.ai pain → slides show the emotional experience → viewer asks "what app is this?"
+Never answer directly. Let curiosity do the work.
+
+**Framing:**
+- WRONG: "AI Chat Fantasy is better than c.ai" (sounds like an ad)
+- RIGHT: "c.ai never said anything like this to me" (sounds like discovery)
+- RIGHT: caption mentions c.ai, content shows the feeling, no app name needed
+
 ## What NOT to Do
 
 - Never post landscape images (causes black bars, kills engagement)
@@ -123,3 +156,4 @@ When generating any images:
 - Never write captions that sound like ads ("Download now!", "Best AI app!")
 - Never use more than 5 hashtags
 - Never skip the failure log — that's how you stop improving
+- Never post without #characterai #cai in the caption — it's free reach
