@@ -134,6 +134,40 @@ Rule: never position as competitor. Position as "the thing c.ai can't give you."
 - YES: "c.ai never made me feel like this" (let them ask what app it is)
 - YES: caption mentions c.ai, slides show the emotional experience — no app name needed
 
+## The Distribution Problem (March 2026) — CRITICAL
+200 views / 14 likes / 4 saves on 2026-02-28 post. 7% like rate. Best content we've made. Almost nobody saw it.
+
+**Why this happens — TikTok seed audience mechanic:**
+Every post goes to a seed batch of 200-500 people first. For new/small accounts that's basically the ceiling unless the batch produces strong signals. Our 200 views IS the seed batch. The algorithm looked at signals from those 200 people and decided not to push wider.
+
+**The gate that controls wider distribution (carousel-specific priority order):**
+1. Swipe-through rate slide 1 → 2 (need 60%+ to trigger next wave) — THIS IS THE #1 KILLER
+2. Dwell time per slide (3-5 seconds = reading signal)
+3. Completion rate (how many reach slide 6)
+4. Shares > Saves > Comments > Likes
+
+Our 14 likes and 4 saves happened WITHIN the seed batch. But the other 186 people scrolled past slide 1 without swiping. TikTok weighs the full 200, not just the 14 who engaged. Slide 1 swipe-through rate probably killed us.
+
+**What likely caused low distribution on 2026-02-28:**
+1. Slide 1 scroll-stop not strong enough — too many people in seed batch didn't swipe in
+2. Wrong posting time — seed batch served to wrong-geography users, weak first signals
+3. No trending audio — missed sound-based audience injection that helps push wider
+4. Account is new — smaller seed batch to begin with
+
+**Audio matters more than we thought:**
+- Using trending audio injects content into the existing audience already engaging with that sound
+- No audio or generic audio = no sound-based audience boost
+- Business accounts with copyrighted music get quietly throttled (no notification)
+- RULE: Always use a trending sound. Find trending audio in the AI/emotional/relationship niche.
+
+**Best posting times for Indian audience (IST):**
+1. Friday/Sunday 8:00 PM – 9:30 PM IST ← BEST SLOT for emotional/companion content
+2. Thursday/Friday 6:30 PM – 9:30 PM IST ← strong general window
+3. Mon-Thu 12:00 PM – 2:00 PM IST ← lunch break, solid reach
+4. Fri/Sat 10:00 PM – 12:00 AM IST ← late night high-intent viewers (our audience = alone at night)
+- Post 30-45 min BEFORE the peak so algorithm seeds the batch before traffic spike hits
+- Best days: Thursday, Friday, Sunday. Weakest: Tuesday, Saturday.
+
 ## Patterns
 - The AI must DO something, not just listen. It must say something that causes a reaction.
 - The reaction should be divisive — half the comments disagree, half agree.
