@@ -165,7 +165,7 @@ Our 14 likes and 4 saves happened WITHIN the seed batch. But the other 186 peopl
 - TikTok seeds based on account region + SIM + posting time. Make sure account is set to US/UK region.
 - If the seed batch hits the wrong geography (e.g. India), the signals will be weak and algorithm kills it fast.
 
-**Best posting times:** see `memory/posting-times.md`
+**Best posting times:** see `shared/memory/posting-times.md`
 
 **CONFIRMED: Wrong geography = instant death (March 2026)**
 - 2026-03-02 posted early morning Tuesday India time = 22 views with trending audio.

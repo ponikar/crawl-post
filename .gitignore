@@ -1,5 +1,7 @@
 config.json
+apps/*/config.json
 node_modules
 Claude.md
 posts
+apps/*/posts
 draft.md

@@ -1,12 +1,12 @@
 {
   "name": "crawlpost",
   "version": "1.0.0",
-  "description": "TikTok image slideshow generator for AI Chat Fantasy",
-  "main": "generate.js",
+  "description": "Multi-app TikTok content generator (AI Chat Fantasy app configured)",
+  "main": "apps/ai-fantasy-chat/scripts/chat.js",
   "scripts": {
-    "generate": "node generate.js",
-    "feedback": "node feedback.js",
-    "chat": "node chat.js"
+    "generate": "node apps/ai-fantasy-chat/scripts/chat.js",
+    "feedback": "node apps/ai-fantasy-chat/scripts/feedback.js",
+    "chat": "node apps/ai-fantasy-chat/scripts/chat.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
