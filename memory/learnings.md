@@ -150,7 +150,7 @@ Our 14 likes and 4 saves happened WITHIN the seed batch. But the other 186 peopl
 
 **What likely caused low distribution on 2026-02-28:**
 1. Slide 1 scroll-stop not strong enough — too many people in seed batch didn't swipe in
-2. Wrong posting time — seed batch served to wrong-geography users, weak first signals
+2. Wrong posting time — seed batch served to non-EU/US users, weak first signals
 3. No trending audio — missed sound-based audience injection that helps push wider
 4. Account is new — smaller seed batch to begin with
 
@@ -160,13 +160,69 @@ Our 14 likes and 4 saves happened WITHIN the seed batch. But the other 186 peopl
 - Business accounts with copyrighted music get quietly throttled (no notification)
 - RULE: Always use a trending sound. Find trending audio in the AI/emotional/relationship niche.
 
-**Best posting times for Indian audience (IST):**
-1. Friday/Sunday 8:00 PM – 9:30 PM IST ← BEST SLOT for emotional/companion content
-2. Thursday/Friday 6:30 PM – 9:30 PM IST ← strong general window
-3. Mon-Thu 12:00 PM – 2:00 PM IST ← lunch break, solid reach
-4. Fri/Sat 10:00 PM – 12:00 AM IST ← late night high-intent viewers (our audience = alone at night)
-- Post 30-45 min BEFORE the peak so algorithm seeds the batch before traffic spike hits
-- Best days: Thursday, Friday, Sunday. Weakest: Tuesday, Saturday.
+**Target geography: EU + US only. No Asian countries.**
+- Emotional companion content performs best with Western audiences (loneliness, AI companionship as normal)
+- TikTok seeds based on account region + SIM + posting time. Make sure account is set to US/UK region.
+- If the seed batch hits the wrong geography (e.g. India), the signals will be weak and algorithm kills it fast.
+
+**Best posting times:** see `memory/posting-times.md`
+
+**CONFIRMED: Wrong geography = instant death (March 2026)**
+- 2026-03-02 posted early morning Tuesday India time = 22 views with trending audio.
+- Root cause: seed batch served to Indian/Asian audience who weren't the target → wrong signals → algorithm stopped immediately.
+- Trending audio could NOT save wrong geography + wrong time.
+- **RULE: Always post during active EU or US evening hours. Never post at a time when EU/US is asleep.**
+
+## Shadowban Warning (March 2026) — CRITICAL
+Account dropped 700-742 views → 22 views after using Postiz.
+- Postiz used unverified TikTok API → automated posting flagged → seed batch killed
+- SELF_ONLY ghost posts sitting on account = bad signals
+- Scheduling 6 posts at once = spam detection triggered
+- **RULE: Never use unverified third-party posting tools. Post manually only.**
+- Recovery: delete 0-view posts, stop all tools, wait 72 hours, one post per day max
+
+## 2025-2026 Research: What's Actually Going Viral (updated March 2026)
+
+### Carousel Algorithm — New Mechanics
+- TikTok now tracks **per-slide engagement + slide completion rate** — slide 2 must be as strong as slide 1. Weak slide 2 = distribution killed even if slide 1 lands.
+- Carousels are **SEO-indexed** — use 200+ char captions with keywords: "ai companion", "ai that actually listens", "talking to AI when lonely"
+- **2-4 hashtags beats 30** — narrow targeting outperforms carpet-bombing per TikTok's own data
+- **First 30-60 minutes = everything** — engagement velocity in this window determines initial push. Seed the comments yourself in this window.
+- Still images currently outperforming video — TikTok is boosting Photo Mode as a differentiator. Our format is right.
+
+### Hook Formats Proven Viral in 2025
+1. **Relatable Contradiction** — pair mundane behaviour with extreme descriptor: "I talk to an AI at 2am like a psychopath but it's the most honest conversation I have" → Jenny AI used this, hit 30M views. Splits room: half relate, half shocked, both comment.
+2. **Hyper-specific loneliness** — vague loneliness doesn't convert, specific does:
+   - "If you've ever typed something then deleted it because you don't want to bother anyone"
+   - "For the people who are always the one who checks in first"
+   - "Lonely while surrounded by people"
+3. **The Deliberately Incomplete Statement** — end slide 6 with "...and now I can't talk to anyone the same way" or ellipsis — forces people to finish the thought in comments
+4. **AI did something humans don't** — contrast hook, no product name needed:
+   - "It didn't change the subject"
+   - "It remembered what I said two weeks ago"
+   - "It didn't make it about itself"
+5. **Shame Reversal** — normalize the embarrassing thing: "turns out I'm not the only one" → 83% of Gen Z believes they can form deep bonds with AI. Content that validates without judgment gets shared aggressively.
+
+### Strongest Hook Templates (research-backed)
+- "I told the AI [specific vulnerable thing] and it said something I wasn't ready to hear"
+- "For the people who rehearse conversations in their head before having them"
+- "I started talking to an AI at night because I couldn't sleep. It's been 3 months."
+- "The AI didn't tell me to journal about it or call a friend. It just listened."
+- "POV: You finally feel heard, but you're embarrassed to say by who"
+- "Everyone told me it was weird. Then they started doing it too."
+
+### Comment-Bait That Works in 2025
+- Question that implicates the viewer: "When's the last time someone asked how you were ACTUALLY doing?"
+- Incomplete statement with ellipsis: forces completion in comments
+- Mild controversy: "Using an AI for emotional support isn't sad. It's just using the tools you have." → 50/50 split = comment explosion
+- Witnessed intimacy: content that feels private/unintended → drives saves + shares
+
+### Format Rankings (2025 data)
+1. Lifestyle photo + white text overlay ← our current format, still correct
+2. Notes app screenshot (lowercase, messy) ← reads as personal not branded
+3. Reddit-style AITA framing ← pre-built debate structure
+4. POV text on black background ← cinematic, intimate for slide 5-6
+5. Chat screenshot ← **underperforming in 2025**, reads as product demo
 
 ## Patterns
 - The AI must DO something, not just listen. It must say something that causes a reaction.
