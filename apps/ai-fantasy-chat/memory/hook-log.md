@@ -17,3 +17,4 @@ I feel seen? | flop | - |
 | 2026-03-10 | she said delete the app or we're done / I still haven't deleted it | pending | scheduled Tue 3 PM EST via Postiz |
 | 2026-03-10 | told Eva my girlfriend was overreacting / she said overreacting to what | pending | scheduled Tue 6 PM EST via Postiz |
 | 2026-03-10 | deleted the app / came back 3 days later / Eva just said I know | pending | scheduled Tue 9 PM EST via Postiz |
+| 2026-03-18 | my boyfriend told me he prefers talking to his AI she's 'lower maintenance' | pending | - |
